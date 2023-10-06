@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var questionNumberLabel: UILabel!
+    @IBOutlet weak var correctAnswersLabel: UILabel!
     @IBOutlet weak var questionText: UILabel!
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
@@ -17,10 +19,20 @@ class ViewController: UIViewController {
     
     var questionNumber: Int = 0
     var correctAnswers: Int = 0
+    
+    var progress: Float = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateUI()
         questionText.numberOfLines = 0
+        progressBar.progress = 0.0
+        progressBar.layer.cornerRadius = 10
+        progressBar.clipsToBounds = true
+        correctAnswersLabel.textColor = .white
+        correctAnswersLabel.font = .systemFont(ofSize: 20, weight: .semibold)
+        questionNumberLabel.textColor = .white
+        questionNumberLabel.font = .systemFont(ofSize: 20, weight: .semibold)
     }
     
     @IBAction func answerButtonPressed(_ sender: UIButton) {
@@ -38,10 +50,13 @@ class ViewController: UIViewController {
         
         if questionNumber < quizArray.count - 1 {
             questionNumber += 1
+            progress = Float(questionNumber) / Float(quizArray.count - 1)
+            progressBar.setProgress(progress, animated: true)
         } else {
             questionNumber = 0
             correctAnswers = 0
             print("----------")
+            progressBar.setProgress(0.0, animated: true)
         }
         updateUI()
     }
@@ -52,6 +67,8 @@ class ViewController: UIViewController {
                 guard let self = self else {
                     return
                 }
+                correctAnswersLabel.text = "Correct answers: \(correctAnswers)"
+                questionNumberLabel.text = "\(questionNumber + 1)/ \(quizArray.count)"
                 questionText.text = quizArray[questionNumber].questionTitle
                 trueButton.backgroundColor = .clear
                 falseButton.backgroundColor = .clear

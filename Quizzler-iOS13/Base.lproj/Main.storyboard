@@ -25,8 +25,20 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fal-oS-tEg">
                                 <rect key="frame" x="20" y="48" width="374" height="814"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o21-qQ-xZT">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="63"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9k-ep-MlV">
+                                        <rect key="frame" x="0.0" y="73" width="374" height="63"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="1000" text="Question Text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSI-li-mhO">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="614"/>
+                                        <rect key="frame" x="0.0" y="146" width="374" height="468"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -70,6 +82,10 @@
                                         <color key="trackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </progressView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="E9k-ep-MlV" firstAttribute="leading" secondItem="rSI-li-mhO" secondAttribute="leading" id="dxa-K5-kRl"/>
+                                    <constraint firstItem="o21-qQ-xZT" firstAttribute="leading" secondItem="rSI-li-mhO" secondAttribute="leading" id="rpe-za-DFb"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -85,8 +101,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="correctAnswersLabel" destination="o21-qQ-xZT" id="CkW-ml-JO3"/>
                         <outlet property="falseButton" destination="tbn-vQ-GyC" id="ZY1-lz-MXz"/>
                         <outlet property="progressBar" destination="TXm-qh-7Xg" id="6f8-cr-NVL"/>
+                        <outlet property="questionNumberLabel" destination="E9k-ep-MlV" id="TGG-fM-Vjq"/>
                         <outlet property="questionText" destination="rSI-li-mhO" id="Mw3-dD-Et6"/>
                         <outlet property="trueButton" destination="oVw-Hl-IRe" id="odJ-xZ-kP2"/>
                     </connections>
