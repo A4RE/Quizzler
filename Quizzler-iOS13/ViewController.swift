@@ -28,8 +28,12 @@ class ViewController: UIViewController {
         if quizArray[questionNumber].questionAnswer == sender.currentTitle {
             correctAnswers += 1
             print(correctAnswers)
+            sender.backgroundColor = .green
+            sender.layer.cornerRadius = 25
         } else {
             print(correctAnswers)
+            sender.backgroundColor = .red
+            sender.layer.cornerRadius = 25
         }
         
         if questionNumber < quizArray.count - 1 {
@@ -43,7 +47,16 @@ class ViewController: UIViewController {
     }
     
     func updateUI() {
-        questionText.text = quizArray[questionNumber].questionTitle
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                questionText.text = quizArray[questionNumber].questionTitle
+                trueButton.backgroundColor = .clear
+                falseButton.backgroundColor = .clear
+            }
+        }
     }
 }
 
