@@ -10,17 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var questionNumberLabel: UILabel!
     @IBOutlet weak var correctAnswersLabel: UILabel!
     @IBOutlet weak var questionText: UILabel!
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
     @IBOutlet weak var progressBar: UIProgressView!
     
-    var questionNumber: Int = 0
-    var correctAnswers: Int = 0
+    var quizBrain = QuizzBrain()
     
-    var progress: Float = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,33 +28,22 @@ class ViewController: UIViewController {
         progressBar.clipsToBounds = true
         correctAnswersLabel.textColor = .white
         correctAnswersLabel.font = .systemFont(ofSize: 20, weight: .semibold)
-        questionNumberLabel.textColor = .white
-        questionNumberLabel.font = .systemFont(ofSize: 20, weight: .semibold)
     }
     
     @IBAction func answerButtonPressed(_ sender: UIButton) {
-
-        if quizArray[questionNumber].questionAnswer == sender.currentTitle {
-            correctAnswers += 1
-            print(correctAnswers)
+        
+        let userAnswer = sender.currentTitle!
+        
+        if quizBrain.checkAnswer(answer: userAnswer) {
             sender.backgroundColor = .green
             sender.layer.cornerRadius = 25
+            
         } else {
-            print(correctAnswers)
             sender.backgroundColor = .red
             sender.layer.cornerRadius = 25
         }
         
-        if questionNumber < quizArray.count - 1 {
-            questionNumber += 1
-            progress = Float(questionNumber) / Float(quizArray.count - 1)
-            progressBar.setProgress(progress, animated: true)
-        } else {
-            questionNumber = 0
-            correctAnswers = 0
-            print("----------")
-            progressBar.setProgress(0.0, animated: true)
-        }
+        quizBrain.nextQuestion()
         updateUI()
     }
     
@@ -67,11 +53,11 @@ class ViewController: UIViewController {
                 guard let self = self else {
                     return
                 }
-                correctAnswersLabel.text = "Correct answers: \(correctAnswers)"
-                questionNumberLabel.text = "\(questionNumber + 1)/ \(quizArray.count)"
-                questionText.text = quizArray[questionNumber].questionTitle
+                correctAnswersLabel.text = "Correct answers: \(quizBrain.correctAnswers) / \(quizBrain.quizArray.count)"
+                questionText.text = quizBrain.getQuestionText()
                 trueButton.backgroundColor = .clear
                 falseButton.backgroundColor = .clear
+                progressBar.setProgress(quizBrain.getProgress(), animated: true)
             }
         }
     }
